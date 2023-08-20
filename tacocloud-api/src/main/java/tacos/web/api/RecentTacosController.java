@@ -24,6 +24,9 @@ public class RecentTacosController {
     this.tacoRepo = tacoRepo;
   }
 
+  /*  produces : 전송할 데이터의 타입
+      consume : 수신할 데이터의 타입
+  */
   @GetMapping(path="/tacos/recent", produces="application/hal+json")
   public ResponseEntity<CollectionModel<TacoResource>> recentTacos() {
     PageRequest page = PageRequest.of(
@@ -34,7 +37,7 @@ public class RecentTacosController {
             new TacoResourceAssembler().toCollectionModel(tacos);
 //        CollectionModel<TacoResource> recentResources = 
 //                new CollectionModel<>(tacoResources);
-    //    
+//
     tacoResources.add(
         linkTo(methodOn(RecentTacosController.class).recentTacos())
             .withRel("recents"));
