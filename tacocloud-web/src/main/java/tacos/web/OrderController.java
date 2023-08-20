@@ -1,6 +1,6 @@
 package tacos.web;
-import javax.validation.Valid;
 
+import jakarta.validation.Valid;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -56,9 +56,9 @@ public class OrderController {
   }
 
   @PostMapping
-  public String processOrder(@Valid Order order, Errors errors, 
-      SessionStatus sessionStatus, 
-      @AuthenticationPrincipal User user) {
+  public String processOrder(@Valid Order order, Errors errors,
+                             SessionStatus sessionStatus,
+                             @AuthenticationPrincipal User user) {
     
     if (errors.hasErrors()) {
       return "orderForm";
