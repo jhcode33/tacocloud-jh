@@ -39,6 +39,7 @@
       <module>tacocloud-web</module>
       <module>tacocloud-ui</module>
       <module>tacocloud-restclient</module>
+        <module>tacocloud-kitchen</module>
     </modules>
 
 </project>

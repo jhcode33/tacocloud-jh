@@ -7,14 +7,6 @@
 	<artifactId>taco-cloud</artifactId>
 	<packaging>pom</packaging>
 
-	<name>taco-cloud</name>
-	<description>Taco Cloud Example</description>
-    <modules>
-        <module>tacocloud-messaging-jms</module>
-		<module>tacocloud-messaging-kafka</module>
-		<module>tacocloud-kitchen</module>
-	</modules>
-
     <parent>
 		<groupId>sia</groupId>
   	<artifactId>taco-cloud-parent</artifactId>
@@ -56,11 +48,11 @@
 			<artifactId>tacocloud-ui</artifactId>
 			<version>${tacocloud.version}</version>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>sia</groupId>-->
-<!--			<artifactId>tacocloud-restclient</artifactId>-->
-<!--			<version>${tacocloud.version}</version>-->
-<!--		</dependency>-->
+		<dependency>
+			<groupId>sia</groupId>
+			<artifactId>tacocloud-restclient</artifactId>
+			<version>${tacocloud.version}</version>
+		</dependency>
 
 		<!-- Run against embedded H2 database by default -->
 		<!-- 
