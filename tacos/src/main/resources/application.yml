@@ -48,7 +48,7 @@ spring:
     properties:
       hibernate:
         format_sql: true
-        hbm2ddl.auto: update
+        hbm2ddl.auto: create
         implicit_naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
         #physical_naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
     open-in-view: false

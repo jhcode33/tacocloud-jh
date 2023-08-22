@@ -46,6 +46,9 @@ public class SecurityConfig {
           http
             .authorizeHttpRequests(authorize -> authorize
                     .requestMatchers(HttpMethod.OPTIONS).permitAll() // needed for Angular/CORS
+                    .requestMatchers(HttpMethod.POST, "/api/ingredients").permitAll()
+                    .requestMatchers("/tacos/recents").permitAll()
+                    .requestMatchers("/tacos/recent").permitAll()
                     .requestMatchers("/design", "/orders/**").permitAll()
                     .requestMatchers(HttpMethod.PATCH, "/ingredients").permitAll()
                     .requestMatchers("/**").permitAll()
@@ -60,7 +63,7 @@ public class SecurityConfig {
                     .logoutSuccessUrl("/")
             )
             .csrf(csrf -> csrf
-                    .ignoringRequestMatchers("/h2-console/**", "/ingredients/**", "/design", "/orders/**")
+                    .ignoringRequestMatchers("/h2-console/**", "/ingredients/**", "/design", "/orders/**", "/api/**", "/tacos/**")
             )
             .headers(headers -> headers
                     .frameOptions(frameOptions -> frameOptions

@@ -3,6 +3,7 @@ package tacos;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
