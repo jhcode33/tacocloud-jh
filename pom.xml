@@ -40,6 +40,7 @@
       <module>tacocloud-ui</module>
       <module>tacocloud-restclient</module>
         <module>tacocloud-kitchen</module>
+        <module>tacocloud-messaging-kafka</module>
     </modules>
 
 </project>
