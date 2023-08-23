@@ -22,6 +22,8 @@ public class OrderListener {
     this.ui = ui;
   }
 
+  // destination : 토픽
+  // 해당하는 메세지가 있으면 제일 먼저 호출됨
   @JmsListener(destination = "tacocloud.order.queue")
   public void receiveOrder(Order order) {
     ui.displayOrder(order);

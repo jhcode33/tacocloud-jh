@@ -5,13 +5,12 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@Profile({"jms-template", "rabbitmq-template"})
+@Profile({"jms-template", "rabbitmq-template", "kafka-listener"})
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
   @Override
   public void addViewControllers(ViewControllerRegistry registry) {
-    registry.addViewController("/").setViewName("receiveOrder");
+    registry.addRedirectViewController("/", "/orders/receive");
   }
-  
 }
