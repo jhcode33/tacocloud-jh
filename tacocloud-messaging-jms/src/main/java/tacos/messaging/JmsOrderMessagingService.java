@@ -11,7 +11,7 @@ import tacos.Order;
 
 @Service
 public class JmsOrderMessagingService implements OrderMessagingService {
-
+  // consumer
   private JmsTemplate jms;
 
   @Autowired
@@ -29,5 +29,4 @@ public class JmsOrderMessagingService implements OrderMessagingService {
     message.setStringProperty("X_ORDER_SOURCE", "WEB");
     return message;
   }
-
 }

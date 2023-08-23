@@ -18,12 +18,13 @@
         <module name="tacocloud-messaging-kafka" />
         <module name="tacocloud-web" />
         <module name="tacocloud-messaging-rabbitmq" />
+        <module name="taco-cloud" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="taco-cloud" options="" />
+      <module name="taco-cloud" options="-parameters" />
       <module name="tacocloud-api" options="-parameters" />
       <module name="tacocloud-data" options="-parameters" />
       <module name="tacocloud-domain" options="-parameters" />

@@ -1,5 +1,8 @@
 package tacos.kitchen.messaging.jms.listener;
 
+import jakarta.jms.MessageConsumer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.jms.annotation.JmsListener;
@@ -11,7 +14,7 @@ import tacos.kitchen.KitchenUI;
 @Profile("jms-listener")
 @Component
 public class OrderListener {
-  
+
   private KitchenUI ui;
 
   @Autowired
