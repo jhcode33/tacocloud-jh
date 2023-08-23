@@ -11,7 +11,7 @@ public class WebConfig implements WebMvcConfigurer {
 
   @Override
   public void addViewControllers(ViewControllerRegistry registry) {
-    registry.addRedirectViewController("/", "/orders/receive");
+    registry.addViewController("/").setViewName("receiveOrder");
   }
   
 }
