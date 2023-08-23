@@ -12,12 +12,12 @@ import tacos.Order;
 import tacos.kitchen.KitchenUI;
 
 @Profile("jms-listener")
-@Component
+//@Component
 public class OrderListener {
 
   private KitchenUI ui;
 
-  @Autowired
+//  @Autowired
   public OrderListener(KitchenUI ui) {
     this.ui = ui;
   }
@@ -26,5 +26,5 @@ public class OrderListener {
   public void receiveOrder(Order order) {
     ui.displayOrder(order);
   }
-  
+
 }

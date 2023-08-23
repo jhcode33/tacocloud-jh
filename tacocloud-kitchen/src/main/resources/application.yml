@@ -16,7 +16,7 @@ spring:
     template:
       receive-timeout: 2
   artemis:
-    broker-url: tcp://0.0.0.0:61616
+    broker-url: tcp://localhost:61616
     user: admin
     password: admin
     embedded:
