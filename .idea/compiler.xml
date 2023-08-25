@@ -17,8 +17,8 @@
         <module name="tacocloud-data" />
         <module name="tacocloud-messaging-kafka" />
         <module name="tacocloud-web" />
-        <module name="tacocloud-messaging-rabbitmq" />
         <module name="taco-cloud" />
+        <module name="tacocloud-messaging-rabbitmq" />
       </profile>
     </annotationProcessing>
   </component>

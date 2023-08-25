@@ -1,15 +1,18 @@
 server:
   port: 8081
 
+# default profile을 설정한 것임, commend 창에서 --spring.profiles.active={profile-name}을 사용해서 변경 가능
+# 프로파일은 무엇인가? -> 런타임 시에 활성화 되는 기능을 나타낸 것
 spring:
   profiles:
-    active: jms-template, jms-listener
+    active: kafka-listener
 
 ---
 spring:
   config:
     activate:
       on-profile: jms-template, jms-listener
+
 # The values given here are actually the default values. But they are explicitly
 # set here as an example of setting the Artemis properties.
   jms:
@@ -22,7 +25,6 @@ spring:
     embedded:
       enabled: false
 
-
 ---
 spring:
   config:
@@ -31,15 +33,17 @@ spring:
     
   kafka:
     bootstrap-servers:
-    - localhost:9092
+    - 13.125.213.94:9092
     template:
-      default-topic: tacocloud.orders.topic
+      default-topic: tacocloud_orders
     consumer:
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       group-id: tacocloud_kitchen
       properties:
         spring.json.trusted.packages: tacos
-      
+    producer:
+      keySerializer: org.springframework.kafka.support.serializer.JsonSerializer
+      valueSerializer: org.springframework.kafka.support.serializer.JsonSerializer
       
       
       

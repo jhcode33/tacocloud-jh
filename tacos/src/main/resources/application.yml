@@ -53,6 +53,16 @@ spring:
         #physical_naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
     open-in-view: false
     show-sql: true
+
+  # tacocloud-messaging-kafka의 yml 파일은 적용이 안됨. root 경로만 가능하다?
+  kafka:
+    bootstrap-servers:
+      - 13.125.213.94:9092
+    template:
+      default-topic: tacocloud_orders
+    producer:
+      keySerializer: org.springframework.kafka.support.serializer.JsonSerializer
+      valueSerializer: org.springframework.kafka.support.serializer.JsonSerializer
   
 
 

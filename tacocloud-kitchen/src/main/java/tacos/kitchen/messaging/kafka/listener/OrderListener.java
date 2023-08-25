@@ -22,7 +22,8 @@ public class OrderListener {
     this.ui = ui;
   }
 
-  @KafkaListener(topics="tacocloud.orders.topic")
+  // Jms, rabbit와 다르게 오직 listener로만 받을 수 있음
+  @KafkaListener(topics="tacocloud_orders")
   public void handle(Order order, ConsumerRecord<String, Order> record) {
     log.info("Received from partition {} with timestamp {}",
         record.partition(), record.timestamp());

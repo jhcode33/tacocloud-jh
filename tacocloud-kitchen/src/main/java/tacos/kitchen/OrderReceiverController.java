@@ -15,29 +15,28 @@ import tacos.Order;
 @RequiredArgsConstructor
 public class OrderReceiverController {
 
-  private final KitchenUI kitchenUI;
   private final OrderReceiver orderReceiver;
-  
+
+  // jms, rabbit은 listener로 queue를 받으면 사라진다.
+  // 따라서 profile을 통해서 listener 빈을 사용하지 않고, template 빈만 사용해서
+  // controller에서 url 요청이 오면 orderReceiver을 통해서 받도록 한다
   @GetMapping("/receive")
   public String receiveOrder(Model model) {
-    Order order = null;
-
-    // kafka는 메세지가 남아있기 때문에 order 객체를 가지고 올 수 있음
-    order = orderReceiver.receiveOrder();
+    Order order = orderReceiver.receiveOrder();
     if (order != null) {
       model.addAttribute("order", order);
       return "receiveOrder";
-
-    } else {
-      order = kitchenUI.getLastReceivedOrder();
-
-      if (order != null) {
-        model.addAttribute("order", order);
-        return "receiveOrder";
-
-      } else {
-        return "noOrder";
-      }
     }
+    return "noOrder";
   }
+//  @GetMapping("/receive")
+//  public String receiveOrder(Model model) {
+//    Order order = kitchenUI.getLastReceivedOrder();
+//
+//    if (order != null) {
+//      model.addAttribute("order", order);
+//      return "receiveOrder";
+//    }
+//    return "noOrder";
+//  }
 }

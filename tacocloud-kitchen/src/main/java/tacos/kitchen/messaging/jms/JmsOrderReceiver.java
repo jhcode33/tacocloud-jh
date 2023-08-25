@@ -2,7 +2,6 @@ package tacos.kitchen.messaging.jms;
 
 import org.springframework.context.annotation.Profile;
 import org.springframework.jms.core.JmsTemplate;
-import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.stereotype.Component;
 
 import tacos.Order;
@@ -22,5 +21,4 @@ public class JmsOrderReceiver implements OrderReceiver {
   public Order receiveOrder() {
     return (Order) jms.receiveAndConvert("tacocloud.order.queue");
   }
-  
 }
