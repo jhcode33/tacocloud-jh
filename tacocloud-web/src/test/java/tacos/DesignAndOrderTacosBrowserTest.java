@@ -27,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @Disabled("Ignore for now...deal with security implications in tests.")
 public class DesignAndOrderTacosBrowserTest {
 
+  private static String gitTest;
   private static HtmlUnitDriver browser;
 
   @LocalServerPort
