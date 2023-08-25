@@ -1,13 +1,12 @@
 package tacos.security;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import tacos.data.UserRepository;
 
 @Controller
 @RequestMapping("/register")
+@CrossOrigin("*")
 public class RegistrationController {
   
   private UserRepository userRepo;
@@ -24,8 +23,8 @@ public class RegistrationController {
     return "registration";
   }
   
-  @PostMapping
-  public String processRegistration(RegistrationForm form) {
+  @PostMapping(consumes="application/json")
+  public String processRegistration(@RequestBody RegistrationForm form) {
     userRepo.save(form.toUser(passwordEncoder));
     return "redirect:/login";
   }

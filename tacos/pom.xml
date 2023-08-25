@@ -52,6 +52,12 @@
 			<version>${tacocloud.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>sia</groupId>
+			<artifactId>tacocloud-web</artifactId>
+			<version>${tacocloud.version}</version>
+		</dependency>
+
 		<!-- Run against embedded H2 database by default -->
 		<!--
 		<dependency>

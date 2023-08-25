@@ -17,6 +17,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+
+import java.util.Arrays;
+import java.util.Collections;
 
 @SuppressWarnings("deprecation")
 @Configuration
@@ -38,19 +43,25 @@ public class SecurityConfig {
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
           http
+            .cors(cors -> cors.disable())
             .authorizeHttpRequests(authorize -> authorize
                     // 서버가 어떤 method, header, content type을 지원하는지 확인한다
                     .requestMatchers(HttpMethod.OPTIONS).permitAll() // needed for Angular/CORS
+
                     .requestMatchers(HttpMethod.POST, "/api/ingredients").permitAll()
+                    .requestMatchers("/register/**").permitAll()
+                    .requestMatchers("/login").permitAll()
+
                     .requestMatchers("/tacos/recents").permitAll()
                     .requestMatchers("/tacos/recent").permitAll()
                     .requestMatchers("/design", "/orders/**").permitAll()
                     // .access("hasRole('ROLE_USER')
+
                     .requestMatchers(HttpMethod.PATCH, "/ingredients").permitAll()
                     .requestMatchers("/**").permitAll()
             )
             .formLogin(formLogin -> formLogin
-                    .loginPage("/login")
+                    .loginPage("/login").permitAll()
             )
             .httpBasic(httpBasic -> httpBasic
                     .realmName("Taco Cloud")
@@ -64,7 +75,10 @@ public class SecurityConfig {
                                                        "/design",
                                                        "/orders/**",
                                                        "/api/**",
-                                                       "/tacos/**")
+                                                       "/tacos/**",
+                                                       "/register/**",
+                                                       "/login"
+                                             )
             )
             // 동일한 출처일 경우, web hijacking을 방지하기 위해
             .headers(headers -> headers
@@ -75,6 +89,7 @@ public class SecurityConfig {
 
     return http.build();
   }
+
 
 //  @Override
 //  protected void configure(HttpSecurity http) throws Exception {

@@ -10,19 +10,7 @@
         </MavenCompilerTask>
         <MavenCompilerTask>
           <option name="goal" value="clean" />
-          <option name="projectPath" value="$PROJECT_DIR$/tacocloud-api/pom.xml" />
-        </MavenCompilerTask>
-        <MavenCompilerTask>
-          <option name="goal" value="clean" />
-          <option name="projectPath" value="$PROJECT_DIR$/tacocloud-domain/pom.xml" />
-        </MavenCompilerTask>
-        <MavenCompilerTask>
-          <option name="goal" value="clean" />
           <option name="projectPath" value="$PROJECT_DIR$/tacocloud-kitchen/pom.xml" />
-        </MavenCompilerTask>
-        <MavenCompilerTask>
-          <option name="goal" value="clean" />
-          <option name="projectPath" value="$PROJECT_DIR$/tacocloud-messaging-jms/pom.xml" />
         </MavenCompilerTask>
       </set>
     </option>
