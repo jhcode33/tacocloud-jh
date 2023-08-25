@@ -1,5 +1,6 @@
 package tacos.web.api;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,17 +25,19 @@ public class TacoResource extends RepresentationModel<TacoResource> {
 
   @Getter
   private final List<IngredientResource> ingredients;
-  
+
   public TacoResource(Taco taco) {
     this.name = taco.getName();
     this.createdAt = taco.getCreatedAt();
-    
-    CollectionModel<IngredientResource> ingredientResource =  
+
+    CollectionModel<IngredientResource> ingredientResource =
             ingredientAssembler.toCollectionModel(taco.getIngredients());
+
+    List<IngredientResource> ingredientList = new ArrayList<>(ingredientResource.getContent());
+
+    this.ingredients = ingredientList;
     
-    this.ingredients = (List<IngredientResource>) ingredientResource.getContent();
-    
-//	    this.ingredients = 
+//	    this.ingredients =
 //	        ingredientAssembler.toCollectionModel(taco.getIngredients()).getContent();
   }
   

@@ -1,9 +1,10 @@
 button {
-  background-color: rgba(118, 214, 255, 0.25);
-  border: 1px solid #76D6FF;
+  background-color: #d1f3ff;
+  border: 1px solid #8adcfb;
   color: #003366;
-  font-size: 10pt;
-  padding: 4px;
+  font-size: 13pt;
+  padding: 7px;
+  margin-left: 25px;
   border-radius: 10px;
   font-weight: bold;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif

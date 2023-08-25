@@ -21,10 +21,12 @@ import { GroupBoxComponent } from './group-box/groupbox.component';
 import { BigButtonComponent } from './big-button/bigbutton.component';
 import { LittleButtonComponent } from './little-button/littlebutton.component';
 
+
 // Services
 import { ApiService } from './api/ApiService';
 import { CartService } from './cart/cart-service';
 import { RecentTacosService } from './recents/RecentTacosService';
+import { UserService } from './api/user-service';
 
 // Pipes
 import { NonWrapsPipe } from './recents/NonWrapsPipe';
@@ -62,7 +64,8 @@ import { routes } from './app.routes';
   providers: [
     ApiService,
     CartService,
-    RecentTacosService
+    RecentTacosService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

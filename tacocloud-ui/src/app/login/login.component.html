@@ -7,40 +7,44 @@
 </p>
 
 <group-box title="Sign in">
-  <form>
+  <form (ngSubmit)="onSignIn()">
     <label for="username"><b>Username:</b></label><br/>
-    <input type="text" name="username" class="formField"/><br/>
+    <input type="text" [(ngModel)]="singInModel.username" name="username" class="formField"/><br/>
     <label for="password"><b>Password:</b></label><br/>
-    <input type="password" name="password" class="formField"/><br/><br/>
-    <big-button label="Sign in"></big-button>
+    <input type="password" [(ngModel)]="singInModel.password" name="password" class="formField"/><br/><br/>
+    <!-- <big-button label="Sign in"></big-button> -->
+    <input type="submit" value="Sing in"/>
   </form>
 </group-box>
 
 <group-box title="Register">
-  <form>
+  <form (ngSubmit)="onRegisterSubmit()">
     <label for="username"><b>Username:</b></label><br/>
-    <input type="text" name="username" class="formField"/><br/>
+    <input type="text" [(ngModel)]="regitrationModel.username" name="username" class="formField"/><br/>
     <label for="password"><b>Password:</b></label><br/>
-    <input type="password" name="password" class="formField"/><br/><br/>
+
+    <input type="password" [(ngModel)]="regitrationModel.password" name="password" class="formField"/><br/><br/>
     <label for="password"><b>(verify password)</b></label><br/>
-    <input type="password" name="verifyPassword" class="formField"/><br/><br/>
+
+    <input type="password" [(ngModel)]="regitrationModel.verifyPassword" name="verifyPassword" class="formField"/><br/><br/>
 
     <label for="fullName"><b>Full name:</b></label><br/>
-    <input type="text" name="fullName" class="formField"/><br/><br/>
+    <input type="text" [(ngModel)]="regitrationModel.fullName" name="fullName" class="formField"/><br/><br/>
 
     <label for="street"><b>Street:</b></label><br/>
-    <input type="text" name="street" class="formField"/><br/><br/>
+    <input type="text" [(ngModel)]="regitrationModel.street" name="street" class="formField"/><br/><br/>
 
     <label for="city"><b>City / State:</b></label><br/>
-    <input type="text" name="city" class="formField"/><input type="text" name="state" class="formField"/><br/><br/>
+    <input type="text" [(ngModel)]="regitrationModel.city" name="city" class="formField"/>
+    <input type="text" [(ngModel)]="regitrationModel.state" name="state" class="formField"/><br/><br/>
 
     <label for="zipCode"><b>Zip code:</b></label><br/>
-    <input type="text" size="2" name="zipCode" class="formField"/><br/><br/>
+    <input type="text" [(ngModel)]="regitrationModel.zip" size="2" name="zip" class="formField"/><br/><br/>
 
     <label for="phoneNumber"><b>Phone number:</b></label><br/>
-    <input type="text" name="phoneNumber" class="formField"/><br/><br/>
+    <input type="text" [(ngModel)]="regitrationModel.phone" name="phoneNumber" class="formField"/><br/><br/>
 
-
-    <big-button label="Register"></big-button>
+    <!-- <big-button label="Submit Register" (clickEvent)="onSubmit()"></big-button> -->
+    <input type="submit" value="Register"/>
   </form>
 </group-box>
