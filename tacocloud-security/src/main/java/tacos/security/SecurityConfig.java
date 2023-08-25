@@ -8,6 +8,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation
         .authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web
         .builders.HttpSecurity;
 import org.springframework.security.config.annotation.web
@@ -22,13 +23,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
-  @Autowired
-  private UserDetailsService userDetailsService;
-
-  @Autowired
-  @Lazy
-  private PasswordEncoder encoder;
-
   @Bean
   @Lazy
   public PasswordEncoder encoder() {
@@ -36,20 +30,22 @@ public class SecurityConfig {
     return NoOpPasswordEncoder.getInstance();
   }
 
-  public AuthenticationManager authenticationManager(AuthenticationManagerBuilder auth) throws Exception {
-    auth.userDetailsService(userDetailsService).passwordEncoder(encoder);
-    return auth.build();
+  @Bean
+  AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception{
+    return authenticationConfiguration.getAuthenticationManager();
   }
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
           http
             .authorizeHttpRequests(authorize -> authorize
+                    // 서버가 어떤 method, header, content type을 지원하는지 확인한다
                     .requestMatchers(HttpMethod.OPTIONS).permitAll() // needed for Angular/CORS
                     .requestMatchers(HttpMethod.POST, "/api/ingredients").permitAll()
                     .requestMatchers("/tacos/recents").permitAll()
                     .requestMatchers("/tacos/recent").permitAll()
                     .requestMatchers("/design", "/orders/**").permitAll()
+                    // .access("hasRole('ROLE_USER')
                     .requestMatchers(HttpMethod.PATCH, "/ingredients").permitAll()
                     .requestMatchers("/**").permitAll()
             )
@@ -63,8 +59,14 @@ public class SecurityConfig {
                     .logoutSuccessUrl("/")
             )
             .csrf(csrf -> csrf
-                    .ignoringRequestMatchers("/h2-console/**", "/ingredients/**", "/design", "/orders/**", "/api/**", "/tacos/**")
+                    .ignoringRequestMatchers("/h2-console/**",
+                                                       "/ingredients/**",
+                                                       "/design",
+                                                       "/orders/**",
+                                                       "/api/**",
+                                                       "/tacos/**")
             )
+            // 동일한 출처일 경우, web hijacking을 방지하기 위해
             .headers(headers -> headers
                     .frameOptions(frameOptions -> frameOptions
                             .sameOrigin()

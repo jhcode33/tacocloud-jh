@@ -37,13 +37,11 @@ spring:
     template:
       default-topic: tacocloud_orders
     consumer:
+      # consumer 쪽에서는 Deserializer이다.
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       group-id: tacocloud_kitchen
       properties:
         spring.json.trusted.packages: tacos
-    producer:
-      keySerializer: org.springframework.kafka.support.serializer.JsonSerializer
-      valueSerializer: org.springframework.kafka.support.serializer.JsonSerializer
       
       
       
