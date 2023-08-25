@@ -50,7 +50,7 @@ public class SecurityConfig {
 
                     .requestMatchers(HttpMethod.POST, "/api/ingredients").permitAll()
                     .requestMatchers("/register/**").permitAll()
-                    .requestMatchers("/login").permitAll()
+                    .requestMatchers("/customLogin").permitAll()
 
                     .requestMatchers("/tacos/recents").permitAll()
                     .requestMatchers("/tacos/recent").permitAll()
@@ -60,9 +60,9 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.PATCH, "/ingredients").permitAll()
                     .requestMatchers("/**").permitAll()
             )
-            .formLogin(formLogin -> formLogin
-                    .loginPage("/login").permitAll()
-            )
+//            .formLogin(formLogin -> formLogin
+//                    .loginPage("/customLogin")
+//            )
             .httpBasic(httpBasic -> httpBasic
                     .realmName("Taco Cloud")
             )
@@ -77,7 +77,7 @@ public class SecurityConfig {
                                                        "/api/**",
                                                        "/tacos/**",
                                                        "/register/**",
-                                                       "/login"
+                                                       "/customLogin"
                                              )
             )
             // 동일한 출처일 경우, web hijacking을 방지하기 위해

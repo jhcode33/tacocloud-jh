@@ -89,3 +89,8 @@ div.bottombaritem {
   text-decoration: none;
   color: inherit;
 }
+
+.userStyle {
+  text-align: center;
+  font-size: 20px;
+}
