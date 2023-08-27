@@ -44,6 +44,7 @@
         <module>tacocloud-security</module>
         <module>tacocloud-web</module>
         <module>tacocloud-ui</module>
+        <module>tacocloud-jwt</module>
     </modules>
 
 </project>

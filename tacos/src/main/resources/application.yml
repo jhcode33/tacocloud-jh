@@ -43,12 +43,16 @@ spring:
       minimum-idle: 10
       maximum-pool-size: 50
       pool-name: pool-tacocloud_db
+
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     properties:
       hibernate:
-        format_sql: true
-        hbm2ddl.auto: create
+        hibernate:
+          "[format_sql]": true            #SQL을 보기 좋게 출력
+          "[user_sql_comments]": true     #SQL생성 시 주석 포함
+          "[highlight_sql]": true         #SQL에 색깔
+          "[hbm2ddl.auto]": create
         implicit_naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
         #physical_naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
     open-in-view: false
