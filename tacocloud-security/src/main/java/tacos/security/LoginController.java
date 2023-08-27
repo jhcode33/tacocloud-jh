@@ -3,13 +3,16 @@ package tacos.security;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import tacos.User;
 import tacos.data.UserRepository;
 
 @RestController
 @RequestMapping("/customLogin")
-@CrossOrigin("*")
+//@CrossOrigin("*")
 public class LoginController {
 
     private final UserRepository userRepository;
@@ -19,12 +22,16 @@ public class LoginController {
     }
 
     @PostMapping(consumes="application/json")
-    @ResponseBody
+//    @ResponseBody
     public ResponseEntity<User> processLogin(@RequestBody User user, HttpSession httpSession) {
         try {
             // 회원가입한 유저인지 확인
             User loginUser = loginUser(user);
             if (loginUser != null) {
+                // Security 인증 처리 -> 다른 Controller에서 @Authentication, @Principal 등으로 받아올 수 있음
+                Authentication authentication = new UsernamePasswordAuthenticationToken(loginUser, loginUser.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+                httpSession.setAttribute("user", loginUser);
                 return ResponseEntity.ok(loginUser);
             }
         } catch (Exception e) {
@@ -33,7 +40,7 @@ public class LoginController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(user);
     }
 
-    private User loginUser(User user) throws Exception {
+    private User loginUser(User user){
         User loginUser = null;
 
         loginUser = userRepository.findByUsername(user.getUsername());

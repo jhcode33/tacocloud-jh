@@ -9,7 +9,7 @@ import tacos.User;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RegistrationForm {
-
+  //DTO
   private String username;
   private String password;
   private String fullName;

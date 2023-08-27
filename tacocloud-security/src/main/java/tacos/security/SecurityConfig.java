@@ -19,6 +19,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -43,7 +45,7 @@ public class SecurityConfig {
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
           http
-            .cors(cors -> cors.disable())
+            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .authorizeHttpRequests(authorize -> authorize
                     // 서버가 어떤 method, header, content type을 지원하는지 확인한다
                     .requestMatchers(HttpMethod.OPTIONS).permitAll() // needed for Angular/CORS
@@ -88,6 +90,33 @@ public class SecurityConfig {
             );
 
     return http.build();
+  }
+//  @Bean
+//  public CorsFilter corsFilter() {
+//    CorsConfiguration config = new CorsConfiguration();
+//    config.addAllowedOrigin("http://localhost:4200"); // Angular 클라이언트의 Origin
+//    config.addAllowedMethod("*"); // 허용할 HTTP 메서드
+//    config.addAllowedHeader("*"); // 허용할 헤더
+//    config.setAllowCredentials(true); // 인증 정보 허용
+//
+//    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//    source.registerCorsConfiguration("/**", config);
+//
+//    return new CorsFilter(source);
+//  }
+
+
+  @Bean
+  CorsConfigurationSource corsConfigurationSource() {
+    CorsConfiguration config = new CorsConfiguration();
+    config.setAllowedOrigins(Arrays.asList("http://localhost:8080", "http://localhost:4200"));
+    config.setAllowedHeaders(Arrays.asList("*"));
+    config.setAllowedMethods(Arrays.asList("GET","POST", "PUT", "DELETE"));
+    config.setAllowCredentials(true);
+
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", config);
+    return source;
   }
 
 

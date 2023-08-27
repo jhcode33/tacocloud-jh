@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { OAuthModule } from 'angular-oauth2-oidc';
 
 // Components
@@ -26,7 +26,6 @@ import { LittleButtonComponent } from './little-button/littlebutton.component';
 import { ApiService } from './api/ApiService';
 import { CartService } from './cart/cart-service';
 import { RecentTacosService } from './recents/RecentTacosService';
-import { UserService } from './api/user-service';
 
 // Pipes
 import { NonWrapsPipe } from './recents/NonWrapsPipe';
@@ -34,6 +33,9 @@ import { WrapsPipe } from './recents/WrapsPipe';
 
 // Routes
 import { routes } from './app.routes';
+
+// CORS
+import { CorsInterceptor } from './cors.interceptor';
 
 @NgModule({
   declarations: [
@@ -65,7 +67,7 @@ import { routes } from './app.routes';
     ApiService,
     CartService,
     RecentTacosService,
-    UserService
+    { provide: HTTP_INTERCEPTORS, useClass: CorsInterceptor, multi: true } // Interceptor 등록
   ],
   bootstrap: [AppComponent]
 })

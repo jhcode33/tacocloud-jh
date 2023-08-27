@@ -1,7 +1,6 @@
-import { Component, OnInit, Injectable } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { UserService } from '../api/user-service';
 
 
 @Component({
@@ -30,30 +29,33 @@ export class LoginComponent implements OnInit {
 };
 
 
-  constructor(private httpClient: HttpClient, private router: Router, private userService: UserService) { }
+  constructor(private httpClient: HttpClient, private router: Router) { }
 
   ngOnInit() { }
 
   onRegisterSubmit() {
-      this.httpClient.post(
-        'http://localhost:8080/register',
-        this.regitrationModel,
-        {
-          headers: new HttpHeaders().set('Content-type', 'application/json')
-                      .set('Accept', 'application/json'),
-          observe: 'response'
-        }
-      ).subscribe(response => {
-        if (response.status  === 201) {
-          // 페이지를 다시 로드하는 코드
-          alert('등록이 완료되었습니다.');
-          this.router.navigate(['/ui/login']);
-        } else {
-          // 다른 상황에 대한 처리
-        }
-      });
+    this.httpClient.post(
+      'http://localhost:8080/register',
+      this.regitrationModel,
+      {
+        headers: new HttpHeaders().set('Content-type', 'application/json')
+                    .set('Accept', 'application/json'),
+        observe: 'response'
+      }
+    ).subscribe(response => {
+      if (response.status === 201) {
+        alert('등록이 완료되었습니다.');
+        // 사용자 등록 후 로그인 페이지로 자동 이동
+        this.router.navigateByUrl('/login').then(() => {
+          // 페이지 전환이 완료된 후에 새로고침
+          window.location.reload();
+        });
+      } else {
+        // 다른 상황에 대한 처리
+      }
+    });
   }
-
+  
   onSignIn() {
     this.httpClient.post(
       'http://localhost:8080/customLogin',
@@ -66,14 +68,13 @@ export class LoginComponent implements OnInit {
     ).subscribe((response: any) => {
       if (response.status === 200) {
         alert("로그인 성공");
-
-        const user = response.body; // User 객체
-        console.log(user);
-        
+  
+        const user = response.body; // User 객체        
         sessionStorage.setItem('user', JSON.stringify(user));
-
-        this.userService.updateUser(user);
+  
+        // Angular 라우팅을 통해 페이지 업데이트
         this.router.navigateByUrl('/').then(() => {
+          // 페이지 전환이 완료된 후에 새로고침
           window.location.reload();
         });
       } else {
@@ -81,5 +82,5 @@ export class LoginComponent implements OnInit {
         alert("로그인 실패");
       }
     });
-  }
+  }  
 }

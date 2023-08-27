@@ -9,7 +9,7 @@ import tacos.data.UserRepository;
 @Slf4j
 @RestController
 @RequestMapping("/register")
-@CrossOrigin("*")
+//@CrossOrigin("*")
 public class RegistrationController {
   
   private UserRepository userRepo;
