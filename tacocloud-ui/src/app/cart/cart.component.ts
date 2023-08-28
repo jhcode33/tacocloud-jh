@@ -49,6 +49,7 @@ export class CartComponent implements OnInit {
         this.model, {
             headers: new HttpHeaders().set('Content-type', 'application/json')
                     .set('Accept', 'application/json'),
+                    withCredentials: true
         }).subscribe(r => this.cart.emptyCart());
 
     // TODO: Do something after this...navigate to a thank you page or something

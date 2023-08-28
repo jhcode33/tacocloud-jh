@@ -1,4 +1,5 @@
 package tacos;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -20,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @NoArgsConstructor(access=AccessLevel.PRIVATE, force=true)
 @RequiredArgsConstructor
-public class User implements UserDetails {
+public class User implements UserDetails, Serializable {
 
   private static final long serialVersionUID = 1L;
 

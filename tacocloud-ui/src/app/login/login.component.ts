@@ -63,7 +63,8 @@ export class LoginComponent implements OnInit {
       {
         headers: new HttpHeaders().set('Content-type', 'application/json')
                     .set('Accept', 'application/json'),
-        observe: 'response'
+                    withCredentials: true,
+                    observe: 'response'
       }
     ).subscribe((response: any) => {
       if (response.status === 200) {

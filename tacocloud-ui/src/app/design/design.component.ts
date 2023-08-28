@@ -49,6 +49,7 @@ export class DesignComponent implements OnInit {
         'http://localhost:8080/design',
         this.model, {
             headers: new HttpHeaders().set('Content-type', 'application/json'),
+            withCredentials: true
         }).subscribe(taco => this.cartService.addToCart(taco));
 
     this.router.navigate(['/cart']);

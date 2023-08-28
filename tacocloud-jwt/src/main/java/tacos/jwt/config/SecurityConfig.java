@@ -3,6 +3,7 @@ package tacos.jwt.config;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -28,38 +29,42 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
-                // token을 사용하는 방식이기 때문에 csrf를 disable합니다.
-                .csrf().disable()
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+            .csrf(csrf -> csrf.disable())
+            .exceptionHandling(except -> except.authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                                               .accessDeniedHandler(jwtAccessDeniedHandler))
+            .headers(headers -> headers
+                    .frameOptions(frameOptions -> frameOptions
+                            .sameOrigin()
+            ))
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .authorizeHttpRequests(authorize -> authorize
+                // 서버가 어떤 method, header, content type을 지원하는지 확인한다
+                .requestMatchers(HttpMethod.OPTIONS).permitAll() // needed for Angular/CORS
 
-                .exceptionHandling()
-                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-                .accessDeniedHandler(jwtAccessDeniedHandler)
+                .requestMatchers(HttpMethod.POST, "/api/ingredients").permitAll()
+                .requestMatchers("/register/**").permitAll()
+                .requestMatchers("/customLogin").permitAll()
 
-                // enable h2-console
-                .and()
-                .headers()
-                .frameOptions()
-                .sameOrigin()
+                .requestMatchers("/tacos/recents").permitAll()
+                .requestMatchers("/tacos/recent").permitAll()
+                .requestMatchers("/design", "/orders/**")/*.permitAll()*/
+                .hasAnyRole("hasRole('ROLE_USER')")
+                //.access("hasRole('ROLE_USER')")
 
-                // 세션을 사용하지 않기 때문에 STATELESS로 설정
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .requestMatchers(HttpMethod.PATCH, "/ingredients").permitAll()
+                .requestMatchers("/**").permitAll()
+            )
+            .httpBasic(httpBasic -> httpBasic
+                    .realmName("Taco Cloud")
+            )
+            .logout(logout -> logout
+                    .logoutSuccessUrl("/")
+            )
+            .apply(new JwtSecurityConfig(tokenProvider));
 
-                .and()
-                .authorizeHttpRequests() // HttpServletRequest를 사용하는 요청들에 대한 접근제한을 설정하겠다.
-                .requestMatchers("/api/authenticate").permitAll() // 로그인 api
-                .requestMatchers("/api/signup").permitAll() // 회원가입 api
-                .requestMatchers(PathRequest.toH2Console()).permitAll()// h2-console, favicon.ico 요청 인증 무시
-                .requestMatchers("/favicon.ico").permitAll()
-                .anyRequest().authenticated() // 그 외 인증 없이 접근X
-
-                .and()
-                .apply(new JwtSecurityConfig(tokenProvider)); // JwtFilter를 addFilterBefore로 등록했던 JwtSecurityConfig class 적용
-
-        return httpSecurity.build();
+        return http.build();
     }
 
 }

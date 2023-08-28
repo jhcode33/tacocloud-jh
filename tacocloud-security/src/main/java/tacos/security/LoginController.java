@@ -1,6 +1,5 @@
 package tacos.security;
 
-import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,16 +21,14 @@ public class LoginController {
     }
 
     @PostMapping(consumes="application/json")
-//    @ResponseBody
-    public ResponseEntity<User> processLogin(@RequestBody User user, HttpSession httpSession) {
+    public ResponseEntity<User> processLogin(@RequestBody User user) {
         try {
             // 회원가입한 유저인지 확인
             User loginUser = loginUser(user);
             if (loginUser != null) {
                 // Security 인증 처리 -> 다른 Controller에서 @Authentication, @Principal 등으로 받아올 수 있음
-                Authentication authentication = new UsernamePasswordAuthenticationToken(loginUser, loginUser.getAuthorities());
+                Authentication authentication = new UsernamePasswordAuthenticationToken(loginUser, loginUser.getPassword(), loginUser.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-                httpSession.setAttribute("user", loginUser);
                 return ResponseEntity.ok(loginUser);
             }
         } catch (Exception e) {
