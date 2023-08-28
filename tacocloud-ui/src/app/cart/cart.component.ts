@@ -49,6 +49,7 @@ export class CartComponent implements OnInit {
         this.model, {
             headers: new HttpHeaders().set('Content-type', 'application/json')
                     .set('Accept', 'application/json'),
+                    //sesseion 함께 전송
                     withCredentials: true
         }).subscribe(r => this.cart.emptyCart());
 
