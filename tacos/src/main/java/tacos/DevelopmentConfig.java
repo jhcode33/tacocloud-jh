@@ -22,13 +22,6 @@ import tacos.data.UserRepository;
 public class DevelopmentConfig {
 
   @Bean
-  @Lazy
-  public PasswordEncoder encoder() {
-    //  return new StandardPasswordEncoder("53cr3t");
-    return NoOpPasswordEncoder.getInstance();
-  }
-
-  @Bean
   public CommandLineRunner dataLoader(IngredientRepository repo,
         UserRepository userRepo, PasswordEncoder encoder, TacoRepository tacoRepo) { // user repo for ease of testing with a built-in user
     return args -> {

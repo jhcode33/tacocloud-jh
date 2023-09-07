@@ -2,17 +2,13 @@ package tacos;
 import java.util.Arrays;
 import java.util.Collection;
 
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.
                                           SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 @Data
 @NoArgsConstructor(access=AccessLevel.PRIVATE, force=true)
