@@ -60,8 +60,10 @@ public class SecurityConfig {
                     .requestMatchers("/register/**").permitAll()
                     .requestMatchers("/customLogin").permitAll()
 
-                    .requestMatchers("/design", "/orders/**")/*.permitAll()*/
-                        .hasRole("USER")
+                    .requestMatchers("/design", "/orders/**")
+                    .permitAll()
+
+                        //.hasRole("USER")
                       //.access("hasRole('ROLE_USER')")
 
                     .requestMatchers(HttpMethod.PATCH, "/ingredients").permitAll()

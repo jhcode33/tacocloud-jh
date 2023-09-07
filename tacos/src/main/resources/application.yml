@@ -11,11 +11,11 @@ taco:
   discount:
     codes:
       abcdef: 10
-      
-#logging:
-#  level:
-#    org.springframework.data.rest: debug
+
 spring:
+#  main:
+#    web-application-type: reactive # 리액티브 애플리케이션을 사용하려면 지정합니다
+
   data:
     rest:
       base-path: /data-api
@@ -67,3 +67,7 @@ spring:
     producer:
       keySerializer: org.springframework.kafka.support.serializer.JsonSerializer
       valueSerializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+logging:
+  level:
+    org.springframework.data.mongodb.core: DEBUG

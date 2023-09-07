@@ -1,3 +1,4 @@
+/*
 package tacos.security;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -27,3 +28,4 @@ public class RegistrationForm {
   }
   
 }
+*/
