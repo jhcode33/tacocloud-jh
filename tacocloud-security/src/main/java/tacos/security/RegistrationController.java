@@ -30,7 +30,7 @@ public class RegistrationController {
   @ResponseStatus(HttpStatus.CREATED)
   public User processRegistration(@RequestBody RegistrationForm form) {
     log.info("등록");
-    return userRepo.save(form.toUser(passwordEncoder));
+    return userRepo.save(form.toUser(passwordEncoder)).block();
    // return "redirect:/login";
   }
 
