@@ -4,11 +4,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.reactive.CorsWebFilter;
+import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 @SuppressWarnings("deprecation")
 @Configuration
@@ -43,24 +48,21 @@ public class SecurityConfig {
                               .pathMatchers("/**").permitAll()
                               .anyExchange().authenticated()
               )
-              .cors(cors -> cors.disable())
+              .httpBasic(Customizer.withDefaults())
               .build();
   }
 
   //== Cors Filter ==//
-//  @Bean
-//  public CorsFilter corsFilter() {
-//    CorsConfiguration config = new CorsConfiguration();
-//    config.addAllowedOrigin("http://localhost:4200"); // Angular 클라이언트의 Origin
-//    config.addAllowedMethod("*"); // 허용할 HTTP 메서드
-//    config.addAllowedHeader("*"); // 허용할 헤더
-//    config.setAllowCredentials(true); // 인증 정보 허용
-//
-//    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//    source.registerCorsConfiguration("/**", config);
-//
-//    return new CorsFilter(source);
-//  }
+  @Bean
+  public CorsWebFilter corsWebFilter() {
+      CorsConfiguration corsConfig = new CorsConfiguration();
+      corsConfig.setAllowCredentials(true);
+      corsConfig.addAllowedOrigin("http://localhost:4200"); // Angular 클라이언트의 Origin
+      corsConfig.addAllowedHeader("*"); // 허용할 헤더
+      corsConfig.addAllowedMethod("*"); // 허용할 HTTP 메서드
+
+      return new CorsWebFilter(exchange -> corsConfig);
+  }
 
 //  //== CORS config ==//
 //  @Bean
