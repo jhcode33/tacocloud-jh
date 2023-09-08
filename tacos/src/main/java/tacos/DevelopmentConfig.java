@@ -25,7 +25,6 @@ public class DevelopmentConfig {
   public CommandLineRunner dataLoader(IngredientRepository repo,
         UserRepository userRepo, PasswordEncoder encoder, TacoRepository tacoRepo) { // user repo for ease of testing with a built-in user
     return args -> {
-      System.out.println("이거 시작하니?");
       Ingredient flourTortilla = new Ingredient("FLTO", "Flour Tortilla", Type.WRAP);
       Ingredient cornTortilla = new Ingredient("COTO", "Corn Tortilla", Type.WRAP);
       Ingredient groundBeef = new Ingredient("GRBF", "Ground Beef", Type.PROTEIN);
