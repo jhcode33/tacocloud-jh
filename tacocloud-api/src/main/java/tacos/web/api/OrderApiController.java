@@ -43,20 +43,22 @@ public class OrderApiController {
     return repo.findAll();
   }
 
-//  @PostMapping(consumes="application/json")
-//  @ResponseStatus(HttpStatus.CREATED)
-//  public Mono<Order> postOrder(@RequestBody Mono<Order> order) {
-//    order.subscribe(orderMessages::sendOrder); // TODO: not ideal...work into reactive flow below
-//    return order
-//        .flatMap(repo::save);
-//  }
-
+    //== 안되서 고쳐야함, 배운 operator을 쓰면 됨 ==//
   @PostMapping(consumes="application/json")
   @ResponseStatus(HttpStatus.CREATED)
-  public Mono<Order> postOrder(@RequestBody Order order) {
-    orderMessages.sendOrder(order);
-    return repo.save(order);
+  public Mono<Order> postOrder(@RequestBody Mono<Order> order) {
+    order.subscribe(orderMessages::sendOrder); // TODO: not ideal...work into reactive flow below
+    return order
+        .flatMap(repo::save);
   }
+
+
+//  @PostMapping(consumes="application/json")
+//  @ResponseStatus(HttpStatus.CREATED)
+//  public Mono<Order> postOrder(@RequestBody Order order) {
+//    orderMessages.sendOrder(order);
+//    return repo.save(order);
+//  }
 
   @PostMapping(path="fromEmail", consumes="application/json")
   @ResponseStatus(HttpStatus.CREATED)

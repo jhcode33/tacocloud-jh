@@ -46,7 +46,6 @@ public class IngredientController {
   public Mono<ResponseEntity<Ingredient>> postIngredient(@RequestBody Mono<Ingredient> ingredient) {
     return ingredient
             .flatMap(repo::save)
-            .doOnNext(i -> System.out.println("이거 동작합니까?"))
             .map(i -> {
               HttpHeaders headers = new HttpHeaders();
               headers.setLocation(URI.create("http://localhost:8080/ingredients/" + i.getId()));

@@ -65,11 +65,11 @@
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
+<!--		<dependency>
 			<groupId>de.flapdoodle.embed</groupId>
 			<artifactId>de.flapdoodle.embed.mongo</artifactId>
 			<version>4.6.3</version>
 			<scope>runtime</scope>
-		</dependency>
+		</dependency>-->
 	</dependencies>
 </project>

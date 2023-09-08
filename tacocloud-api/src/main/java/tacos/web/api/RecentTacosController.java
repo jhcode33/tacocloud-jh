@@ -18,7 +18,6 @@ import reactor.core.publisher.Mono;
 import tacos.Taco;
 import tacos.data.TacoRepository;
 
-@RestController
 @RepositoryRestController
 @CrossOrigin(origins="*")
 public class RecentTacosController {

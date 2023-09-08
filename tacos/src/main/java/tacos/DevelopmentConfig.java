@@ -47,14 +47,17 @@ public class DevelopmentConfig {
               "76227", "123-123-1234", "test@test.com")).subscribe();
 
       Taco taco1 = new Taco();
+      taco1.setId("taco1");
       taco1.setName("Carnivore");
       taco1.setIngredients(Arrays.asList(flourTortilla, groundBeef, carnitas, sourCream, salsa, cheddar));
 
       Taco taco2 = new Taco();
+      taco2.setId("taco2");
       taco2.setName("Bovine Bounty");
       taco2.setIngredients(Arrays.asList(cornTortilla, groundBeef, cheddar, jack, sourCream));
 
       Taco taco3 = new Taco();
+      taco3.setId("taco3");
       taco3.setName("Veg-Out");
       taco3.setIngredients(Arrays.asList(flourTortilla, cornTortilla, tomatoes, lettuce, salsa));
 
