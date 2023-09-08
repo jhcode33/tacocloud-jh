@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.reactive.CorsConfigurationSource;
 import org.springframework.web.cors.reactive.CorsWebFilter;
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -43,11 +44,13 @@ public class SecurityConfig {
                               .pathMatchers("/register/**").permitAll()
                               .pathMatchers("/customLogin").permitAll()
 
-                              .pathMatchers("/design", "/orders/**").permitAll()
+                              .pathMatchers("/design/**", "/orders/**").permitAll()
                               .pathMatchers(HttpMethod.PATCH, "/ingredients").permitAll()
                               .pathMatchers("/**").permitAll()
-                              .anyExchange().authenticated()
+                              .anyExchange().permitAll()
               )
+              .cors(corsSpec -> corsWebFilter())
+              .csrf(csrfSpec -> csrfSpec.disable())
               .httpBasic(Customizer.withDefaults())
               .build();
   }
@@ -57,11 +60,13 @@ public class SecurityConfig {
   public CorsWebFilter corsWebFilter() {
       CorsConfiguration corsConfig = new CorsConfiguration();
       corsConfig.setAllowCredentials(true);
-      corsConfig.addAllowedOrigin("http://localhost:4200"); // Angular 클라이언트의 Origin
-      corsConfig.addAllowedHeader("*"); // 허용할 헤더
-      corsConfig.addAllowedMethod("*"); // 허용할 HTTP 메서드
+      corsConfig.addAllowedOrigin("http://localhost:4200"); // 실제 프론트엔드 애플리케이션의 출처로 변경
+      corsConfig.addAllowedHeader("*"); // 모든 헤더 허용
+      corsConfig.addAllowedMethod("*"); // 모든 HTTP 메서드 허용
 
-      return new CorsWebFilter(exchange -> corsConfig);
+      // 경로 매칭 설정
+      CorsConfigurationSource source = request -> corsConfig;
+      return new CorsWebFilter(source);
   }
 
 //  //== CORS config ==//
